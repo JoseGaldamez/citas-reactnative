@@ -122,7 +122,7 @@ const Formulario = () => {
 
           <View>
             <View>
-              <Text style={styles.label}></Text>
+              <Text style={styles.label} />
               <Button
                 style={styles.btnTime}
                 title={fecha ? 'Cambiar fecha' : 'Seleccionar fecha'}
