@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import ShortId from 'shortid';
 import {
   Button,
   StyleSheet,
@@ -11,7 +12,7 @@ import {
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-const Formulario = () => {
+const Formulario = ({citas, setCitas, setMostrarForm}) => {
   const [fecha, setFecha] = useState('');
   const [hora, setHora] = useState('');
   const [paciente, setPaciente] = useState('');
@@ -63,7 +64,8 @@ const Formulario = () => {
 
   const handleConfirmTime = (time) => {
     const h = new Date(time);
-    setHora(`${h.getHours()}:${h.getMinutes()}`);
+    const m = h.getMinutes() < 10 ? '0' + h.getMinutes() : h.getMinutes();
+    setHora(`${h.getHours()}:${m}`);
     //console.log(hora);
     hideTimePicker();
   };
@@ -81,6 +83,17 @@ const Formulario = () => {
       mostrarAlerta();
       return;
     }
+
+    const cita = {paciente, propietario, telefono, fecha, hora, sintomas};
+    cita.id = ShortId.generate();
+
+    const citasN = [...citas, cita];
+    setCitas(citasN);
+
+    //Ocultar el formulario
+    setMostrarForm(false);
+
+    //Resetear formulario
   };
 
   // Dialogo de alerta por si algo falla
@@ -170,7 +183,6 @@ const Formulario = () => {
               multiline
               style={styles.input}
               onChangeText={(texto) => setSintomas(texto)}
-              keyboardType="numeric"
             />
           </View>
 

@@ -30,12 +30,17 @@ const App = () => {
       <Text style={styles.titulo}>Administrador de citas</Text>
 
       <View style={styles.contenido}>
-        {mostrarForm ? (
+        {mostrarForm ? ( // Mostramos esto si mostrarFormulario es verdadero
           <>
             <Text style={styles.titulo2}>Crear nueva cita</Text>
-            <Formulario />
+            <Formulario
+              citas={citas}
+              setCitas={setCitas}
+              setMostrarForm={setMostrarForm}
+            />
           </>
         ) : (
+          // Mostramos esto si el mostrar Formulario es false
           <>
             <Text style={styles.titulo2}>
               {citas.length > 0 ? ' Administra tus citas' : 'No hay citas'}
